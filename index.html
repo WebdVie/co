@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="webvie-mark.png">
 <title>WebVie | Websites Built to Win Clients</title>
 <meta name="description" content="WebVie is an international web design and development agency. We build fast, modern business websites, online stores and landing pages that win clients.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="WebVie"><meta property="og:title" content="WebVie | Websites Built to Win Clients"><meta property="og:description" content="International web design and development agency. Fast, modern business websites, online stores and landing pages.">
@@ -202,6 +203,7 @@ input,select,textarea{background:var(--bg);color:var(--w);border:1px solid var(-
 </main>
 
 <div id="ov" hidden><div class="ob"><button class="btn g" id="ox" type="button">← Back to WebVie</button><span id="on"></span></div><div id="dm"></div></div>
+<div aria-hidden="true" style="position:absolute;left:-9999px"><input id="hp" tabindex="-1" autocomplete="off"></div>
 <footer><div class="wrap"><span>© 2026 WebVie. All rights reserved.</span><span><a href="#services">Services</a><a href="#work">Projects</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></span><select id="lang" class="lg" data-nt aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option></select></div></footer>
 <script>
 document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){
@@ -233,13 +235,14 @@ var $=function(q){return document.querySelector(q)};
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
 document.querySelectorAll('.ctab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.ctab,.cp').forEach(function(e){e.classList.remove('on')});t.classList.add('on');$('#c-'+t.dataset.c).classList.add('on')})});
 /* After hosting on GitHub, paste your Formspree (or similar) form URL here to receive submissions by email. */
-var ENDPOINT='',cap={},built=false,WA='https://wa.me/20XXXXXXXXXX',EM=/^\S+@\S+\.\S+$/;
+var ENDPOINT='https://formspree.io/f/mrppynkw',cap={},built=false,WA='https://wa.me/201055394403',EM=/^\S+@\S+\.\S+$/;
 async function use(n){try{return typeof claude!=='undefined'?await claude.use(n):null}catch(e){return null}}
 use('db').then(function(x){cap.db=x;owner()});
 use('user').then(function(x){cap.user=x;owner()});
 function wa(d){var a=el('a','',' '+T('Open WhatsApp'));a.href=WA+'?text='+encodeURIComponent('Hi WebVie, '+(d.idea||d.message||'I would like to discuss a project')+' ('+(d.name||'')+', '+(d.email||'')+')');a.target='_blank';a.rel='noopener';return a}
 async function save(d,st){
-d.createdAt=new Date().toISOString();
+var hp=document.getElementById('hp');if(hp&&hp.value){st.className='st';st.textContent=T('Thank you! We received your message and will contact you soon.');return true}
+d.createdAt=new Date().toISOString();d._subject='WebVie: new '+(d.type==='brief'?'project brief':'message')+' from '+(d.name||'');
 try{
 if(ENDPOINT){var r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)});if(!r.ok)throw 0}
 else{if(!cap.db||!cap.user)throw 0;var uid=await cap.user.id();if(!uid)throw 0;var ref=cap.db.doc('requests/'+uid),sn=await ref.get(),old=(sn.exists&&sn.data().items)||[];old.push(d);await ref.set({items:old,name:d.name,updatedAt:d.createdAt})}
